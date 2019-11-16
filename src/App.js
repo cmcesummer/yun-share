@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "./store/SourceCenter";
 import SourceManager from "./store/SourceManager";
 import Container from "./skeleton/Container";
+import Header from "./components/Header/Header";
 
 class App extends React.Component {
     constructor() {
@@ -17,6 +18,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider value={this.value}>
+                <Header></Header>
                 <Container></Container>
             </Provider>
         );

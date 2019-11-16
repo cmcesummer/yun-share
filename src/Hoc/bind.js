@@ -1,7 +1,7 @@
 import React from "react";
 import { Consumer } from "../store/SourceCenter";
-import BaseComponent from "../utils/BaseComponent";
 import DecoratorUtils from "../utils/DecoratorUtils";
+import BaseComponent from "../components/BaseComponent";
 
 export default function bind(dataname, initdata) {
     return Component => {

@@ -1,9 +1,9 @@
 import React from "react";
 import bind from "../Hoc/bind";
-import BaseComponent from "../utils/BaseComponent";
 import { Modal, Button } from "antd";
 import Content from "../components/ModalContent";
 import AutoBind from "../utils/Autobind";
+import BaseComponent from "../components/BaseComponent";
 
 @bind("Container", { value: 0 })
 class Container extends BaseComponent {

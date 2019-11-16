@@ -1,5 +1,5 @@
 import React from "react";
-import AutoBind from "./Autobind";
+import AutoBind from "../../utils/Autobind";
 
 function componentDataCompare(thisProps, nextProps) {
     thisProps = thisProps === null ? {} : thisProps;
