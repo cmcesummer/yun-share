@@ -11,6 +11,29 @@ const loadUrl = DEV_ENV ? "http://localhost:3002/" : path.join("file://", __dirn
 let mainWindow = null;
 
 function createWindow() {
+    const options = {
+        width: 950,
+        height: 700,
+        // backgroundColor: "#021524",
+        show: false, // 创建后是否显示
+        frame: true, // 是否创建frameless窗口
+        center: true, // 是否出现在屏幕居中的位置
+        fullscreenable: true, // 是否允许全屏
+        resizable: true, // 是否允许拉伸大小
+        title: "yun-share",
+        vibrancy: "ultra-dark", // 窗口模糊的样式（仅macOS）
+        transparent: true, // 是否是透明窗口（仅macOS）
+        titleBarStyle: "hidden", // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
+        webPreferences: {
+            backgroundThrottling: false // 当页面被置于非激活窗口的时候是否停止动画和计时器
+        }
+    };
+    if (process.platform === "win32") {
+        // 针对windows平台做出不同的配置
+        options.show = true; // 创建即展示
+        options.frame = false; // 创建一个frameless窗口
+        options.backgroundColor = "#3f3c37"; // 背景色
+    }
     mainWindow = new BrowserWindow({
         width: 950,
         height: 700,
