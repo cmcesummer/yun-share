@@ -1,9 +1,10 @@
 import React from "react";
 import bind from "../Hoc/bind";
-import { Modal, Button } from "antd";
-import Content from "../components/ModalContent";
+// import { Modal, Button } from "antd";
+// import Content from "../components/ModalContent";
 import AutoBind from "../utils/Autobind";
 import BaseComponent from "../components/BaseComponent";
+import EditBox from "./EditBox";
 
 @bind("Container", { value: 0 })
 class Container extends BaseComponent {
@@ -35,7 +36,8 @@ class Container extends BaseComponent {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
+                <EditBox />
+                {/* <header className="App-header">
                     <p>
                         Edit <code>src/App.js</code> and save to reload.
                     </p>
@@ -49,7 +51,7 @@ class Container extends BaseComponent {
                     ) : null}
 
                     <p>this.props.value: {this.props.value}</p>
-                </header>
+                </header> */}
             </div>
         );
     }
