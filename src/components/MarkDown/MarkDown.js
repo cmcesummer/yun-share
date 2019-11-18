@@ -3,7 +3,7 @@ import BaseComponent from "../BaseComponent";
 import ReactMarkdown from "react-markdown";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import AutoBind from "../../utils/Autobind";
-import DecoratorUtils from "../../utils/DecoratorUtils";
+// import DecoratorUtils from "../../utils/DecoratorUtils";
 
 require("codemirror/lib/codemirror.css");
 require("codemirror/theme/material.css");
@@ -28,6 +28,16 @@ export default class MarkDown extends BaseComponent {
         this.setState({ value });
     }
 
+    @AutoBind
+    onKeydown(m, e) {
+        console.log(`code: ${e.code}, key:${e.key}, ctrlKey: ${e.ctrlKey}, e.keycode: ${e.keyCode}`);
+        if (e.ctrlKey && e.keyCode === 83) {
+            e.stopPropagation();
+            e.preventDefault();
+            console.log("save");
+        }
+    }
+
     render() {
         const { showEdit = false } = this.props;
         return (
@@ -43,6 +53,7 @@ export default class MarkDown extends BaseComponent {
                     }}
                     onScroll={this.editScroll}
                     onBeforeChange={this.onBeforeChange}
+                    onKeyDown={this.onKeydown}
                 />
                 <div
                     className="ys-react-md s"

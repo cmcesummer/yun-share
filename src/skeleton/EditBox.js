@@ -16,6 +16,9 @@ class EditBox extends BaseComponent {
         this.setState({ showEdit: !this.state.showEdit });
     }
 
+    @AutoBind
+    onSave() {}
+
     render() {
         const { showEdit } = this.state;
         return (
@@ -24,7 +27,7 @@ class EditBox extends BaseComponent {
                     <Button onClick={this.changeEdit}>{showEdit ? `预览` : `编辑`}</Button>
                 </div>
                 <div className="eidtbox-body">
-                    <MarkDown showEdit={showEdit} />
+                    <MarkDown showEdit={showEdit} onSave={this.onSave} />
                 </div>
             </section>
         );
