@@ -76,7 +76,13 @@ export function sendFile(options) {
         const xhr = new XMLHttpRequest();
         const form = new FormData();
         if (process) xhr.upload.addEventListener("progress", process, false);
-        const successFn = _ => res(xhr.responseText);
+        const successFn = _ => {
+            try {
+                res(JSON.parse(xhr.responseText));
+            } catch (e) {
+                rej(e);
+            }
+        };
         const errorFn = resp => rej(resp);
         xhr.addEventListener("load", successFn, false);
         xhr.addEventListener("error", errorFn, false);

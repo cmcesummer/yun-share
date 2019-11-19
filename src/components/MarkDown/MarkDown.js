@@ -20,6 +20,10 @@ const parseHtml = htmlParser({
     isValidNode: node => node.type !== "script"
 });
 
+document.addEventListener("drop", e => {
+    e.preventDefault();
+});
+
 export default class MarkDown extends BaseComponent {
     state = {
         value: ""
@@ -54,19 +58,37 @@ export default class MarkDown extends BaseComponent {
             if (!item || item.kind !== "file" || !item.type.match(/^image\//i)) continue;
             console.log(item.getAsFile());
             // 粘贴拦截并上传图片后添加到内容中 等接口
-            // const cursor = e.doc.getCursor();
-            // const pos = {
-            //     line: cursor.line,
-            //     ch: cursor.ch
-            // };
+            // const { line, ch } = e.doc.getCursor();
             // sendFile({ url: "xxx", file: item.getAsFile() })
             //     .then(res => {
-            //         res = JSON.parse(res);
-            //         e.doc.replaceRange(` ![](${res.url}) `, pos);
+            //         e.doc.replaceRange(` ![](${res.url}) `, { line, ch });
             //     })
             //     .catch(e => window.alert(`error:`, JSON.stringify(e)));
         }
     }
+
+    onDragOver = (m, e) => {
+        e.preventDefault();
+    };
+    onDragLeave = (m, e) => {
+        e.preventDefault();
+    };
+    onDrop = (m, e) => {
+        e.preventDefault();
+        const fileList = e.dataTransfer.files;
+        const len = fileList.length;
+        if (!len) return;
+        // 拖拽图片后上传并添加到内容中 等接口
+        // for (const file of fileList) {
+        //     if (!file.type.match(/^image\//i)) continue;
+        //     const { line, ch } = m.doc.getCursor();
+        //     sendFile({ url: "xxx", file })
+        //         .then(res => {
+        //             e.doc.replaceRange(` ![](${res.url}) `, { line, ch });
+        //         })
+        //         .catch(e => window.alert(`error:`, JSON.stringify(e)));
+        // }
+    };
 
     render() {
         const { showEdit = false } = this.props;
