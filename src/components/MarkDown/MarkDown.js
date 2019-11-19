@@ -4,11 +4,21 @@ import ReactMarkdown from "react-markdown";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import AutoBind from "../../utils/Autobind";
 // import DecoratorUtils from "../../utils/DecoratorUtils";
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/material.css";
+import "codemirror/mode/markdown/markdown.js";
+import "codemirror/mode/javascript/javascript";
+import "codemirror/addon/lint/lint.css";
+import "codemirror/addon/lint/lint";
+import "codemirror/addon/lint/json-lint";
 
-require("codemirror/lib/codemirror.css");
-require("codemirror/theme/material.css");
-require("codemirror/mode/markdown/markdown.js");
-require("./index.scss");
+import "./index.scss";
+// import { sendFile } from "../../utils/http";
+
+const htmlParser = require("react-markdown/plugins/html-parser");
+const parseHtml = htmlParser({
+    isValidNode: node => node.type !== "script"
+});
 
 export default class MarkDown extends BaseComponent {
     state = {
@@ -24,17 +34,37 @@ export default class MarkDown extends BaseComponent {
     }
 
     @AutoBind
-    onBeforeChange(m, d, value) {
+    onBeforeChange(e, d, value) {
         this.setState({ value });
     }
 
     @AutoBind
-    onKeydown(m, e) {
-        console.log(`code: ${e.code}, key:${e.key}, ctrlKey: ${e.ctrlKey}, e.keycode: ${e.keyCode}`);
-        if (e.ctrlKey && e.keyCode === 83) {
-            e.stopPropagation();
-            e.preventDefault();
-            console.log("save");
+    save(e) {
+        console.log("save", e);
+    }
+
+    onPaste(e, d) {
+        const clipboardData = d.clipboardData;
+        if (!clipboardData) return;
+        const items = clipboardData.items;
+        if (!items || items.length === 0) return;
+        for (let i = 0; i < clipboardData.types.length; i++) {
+            if (clipboardData.types[i] !== "Files") continue;
+            const item = items[i];
+            if (!item || item.kind !== "file" || !item.type.match(/^image\//i)) continue;
+            console.log(item.getAsFile());
+            // 粘贴拦截并上传图片后添加到内容中 等接口
+            // const cursor = e.doc.getCursor();
+            // const pos = {
+            //     line: cursor.line,
+            //     ch: cursor.ch
+            // };
+            // sendFile({ url: "xxx", file: item.getAsFile() })
+            //     .then(res => {
+            //         res = JSON.parse(res);
+            //         e.doc.replaceRange(` ![](${res.url}) `, pos);
+            //     })
+            //     .catch(e => window.alert(`error:`, JSON.stringify(e)));
         }
     }
 
@@ -49,19 +79,23 @@ export default class MarkDown extends BaseComponent {
                         mode: "markdown",
                         theme: "material",
                         lineNumbers: true,
-                        autoCloseTags: true
+                        autoCloseTags: true,
+                        extraKeys: {
+                            // todo: 测试 Ctrl-S 在mac上是否生效
+                            "Ctrl-S": this.save
+                        }
                     }}
                     onScroll={this.editScroll}
                     onBeforeChange={this.onBeforeChange}
-                    onKeyDown={this.onKeydown}
+                    onPaste={this.onPaste}
                 />
                 <div
-                    className="ys-react-md s"
+                    className="ys-react-md"
                     ref={ref => {
                         this.mdbox = ref;
                     }}
                 >
-                    <ReactMarkdown source={this.state.value} />
+                    <ReactMarkdown source={this.state.value} skipHtml={false} escapeHtml={false} astPlugins={[parseHtml]} />
                 </div>
             </div>
         );

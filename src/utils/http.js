@@ -69,3 +69,21 @@ export function requestFetch(info) {
             return Promise.reject(error);
         });
 }
+
+export function sendFile(options) {
+    const { url, file, process, ...other } = options;
+    return new Promise((res, rej) => {
+        const xhr = new XMLHttpRequest();
+        const form = new FormData();
+        if (process) xhr.upload.addEventListener("progress", process, false);
+        const successFn = _ => res(xhr.responseText);
+        const errorFn = resp => rej(resp);
+        xhr.addEventListener("load", successFn, false);
+        xhr.addEventListener("error", errorFn, false);
+        xhr.addEventListener("abort", errorFn, false);
+        form.append("file", file);
+        Object.keys(other).map(key => form.append(key, other[key]));
+        xhr.open("POST", url, true);
+        xhr.send(form);
+    });
+}
