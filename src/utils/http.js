@@ -14,8 +14,6 @@ function timeoutCut(fetch, time) {
     return res;
 }
 
-console.log(timeoutCut);
-
 function handelGetUrl(url, params) {
     if (params) {
         const paramsArray = [];
