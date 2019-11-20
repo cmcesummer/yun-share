@@ -19,12 +19,56 @@ code {
     bottom: 0;
 }
 
+ol,
+ul,
+dl {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 .App {
     position: absolute;
     top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
+    display: flex;
+    .ys-filelist {
+        width: 300px;
+        background: rgb(250, 250, 250);
+        height: 100%;
+        overflow: auto;
+        @include scrollbar();
+        li {
+            position: relative;
+            padding: 16px 24px;
+            color: $base-light-font-color;
+            cursor: pointer;
+            font-size: 0;
+            &:hover,
+            &.active {
+                background: rgb(242, 242, 242);
+            }
+            .title {
+                overflow: hidden;
+                width: 200px;
+                display: inline-block;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: 16px;
+            }
+            .time {
+                position: absolute;
+                right: 24px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 16px;
+            }
+        }
+    }
+    .eidtbox {
+        flex: 1;
+    }
 }
 .eidtbox {
     width: 100%;
@@ -43,6 +87,18 @@ code {
         left: 0;
         right: 0;
         bottom: 0;
+        display: flex;
+    }
+    .eidtbox-ctrlbar {
+        width: 80px;
+        background: #fafafa;
+        & button {
+            margin: 20px auto;
+            display: block;
+        }
+    }
+    .ys-md-box {
+        flex: 1;
     }
 }
 .ys-header {

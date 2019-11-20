@@ -1,3 +1,22 @@
 $base-dark-font-color: #0d1a26;
 
 $base-light-font-color: #314659;
+
+@mixin scrollbar {
+    box-sizing: border-box;
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(151, 151, 151);
+        background-clip: content-box;
+        border-top: 5px solid rgba(255, 255, 255, 0);
+        border-bottom: 5px solid rgba(255, 255, 255, 0);
+        border-right: 2px solid rgba(255, 255, 255, 0);
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #ececec;
+    }
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+}

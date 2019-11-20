@@ -5,8 +5,10 @@ import bind from "../Hoc/bind";
 import AutoBind from "../utils/Autobind";
 import BaseComponent from "../components/BaseComponent";
 import EditBox from "./EditBox";
+import FileList from "./FileList";
+import { ContainerStoreName } from "../utils/constant";
 
-@bind("Container", { value: 0 })
+@bind(ContainerStoreName, { value: 0 })
 class Container extends BaseComponent {
     state = {
         visible: false
@@ -36,6 +38,7 @@ class Container extends BaseComponent {
     render() {
         return (
             <div className="App">
+                <FileList />
                 <EditBox />
                 {/* <header className="App-header">
                     <p>
