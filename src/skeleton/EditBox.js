@@ -17,7 +17,14 @@ class EditBox extends BaseComponent {
     }
 
     @AutoBind
-    onSave() {}
+    onSave(value, e) {
+        // 本地保存成文件
+        console.log(value);
+        this.props.setValue("Header", { loading: true });
+        setTimeout(() => {
+            this.props.setValue("Header", { loading: false });
+        }, 1000);
+    }
 
     render() {
         const { showEdit } = this.state;

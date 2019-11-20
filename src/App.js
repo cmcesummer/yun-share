@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "./store/SourceCenter";
 import SourceManager from "./store/SourceManager";
 import Container from "./skeleton/Container";
-import Header from "./components/Header/Header";
+import Header from "./skeleton/Header";
 
 class App extends React.Component {
     constructor() {

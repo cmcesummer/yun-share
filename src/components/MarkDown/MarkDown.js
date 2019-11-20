@@ -33,8 +33,8 @@ export default class MarkDown extends BaseComponent {
     @AutoBind
     onSave(e) {
         const { value } = this.state;
-        console.log("save", value);
-        // 本地保存成文件
+        const { onSave } = this.props;
+        if (onSave) onSave(value, e);
     }
 
     render() {

@@ -13,7 +13,8 @@ export default class SourceManager {
 
     @AutoBind
     setValue(name, value, fire = true) {
-        this.stroage[name] = value;
+        const old = this.stroage[name] || {};
+        this.stroage[name] = { ...old, ...value };
         const listener = this.listener[name];
         if (fire && Array.isArray(listener)) {
             for (const fn of listener) {

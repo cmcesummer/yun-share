@@ -6,3 +6,4 @@ feature list:
 -   [x] 编辑器粘贴拦截
 -   [x] code 编辑器拖拽上传
 -   上传图片
+-   导出为 md/html/pdf
