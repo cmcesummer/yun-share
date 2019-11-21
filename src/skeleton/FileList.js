@@ -30,11 +30,20 @@ class FileList extends BaseComponent {
         const { setValue } = this.props;
         setValue(ContainerStoreName, { fileInfo: item });
     }
+
+    @AutoBind
+    onMouseUp(e) {
+        if (e.button === 2 && e.target.className === "ys-filelist") {
+            console.log(`mouseY`, e.clientY, e.pageY);
+            console.log(`mouseX`, e.clientX, e.pageX);
+        }
+    }
+
     render() {
         return (
-            <ul className="ys-filelist">
-                {map.map(item => (
-                    <li onClick={this.click.bind(this, item)}>
+            <ul className="ys-filelist" onMouseUp={this.onMouseUp}>
+                {map.map((item, index) => (
+                    <li key={index} onClick={this.click.bind(this, item)}>
                         <div className="title">{item.title}</div>
                         <div className="time">{item.time}</div>
                     </li>

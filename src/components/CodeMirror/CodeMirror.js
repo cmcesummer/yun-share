@@ -10,6 +10,7 @@ import "codemirror/addon/lint/lint";
 import "codemirror/addon/lint/json-lint";
 import AutoBind from "../../utils/Autobind";
 import { sendFile } from "../../utils/http";
+import Utils from "../../utils/Utils";
 
 function upImage({ url, file, codem }) {
     const { line, ch } = codem.doc.getCursor();
@@ -45,16 +46,10 @@ export default class CodeMirror extends BaseComponent {
         if (onPaste) onPaste(e, d);
         if (!actionUrl) return;
         const clipboardData = d.clipboardData;
-        if (!clipboardData) return;
-        const items = clipboardData.items;
-        if (!items || items.length === 0) return;
-        for (let i = 0; i < clipboardData.types.length; i++) {
-            if (clipboardData.types[i] !== "Files") continue;
-            const item = items[i];
-            if (!item || item.kind !== "file" || !item.type.match(/^image\//i)) continue;
-            // 粘贴拦截并上传图片后添加到内容中 等接口
-            upImage({ url: actionUrl, file: item.getAsFile(), codem: e });
-        }
+        const fileList = Utils.findPasteImage(clipboardData);
+        if (!fileList) return;
+        // 粘贴拦截并上传图片后添加到内容中 等接口
+        fileList.map(file => upImage({ url: actionUrl, file, codem: e }));
     }
 
     stopDrag(m, e) {

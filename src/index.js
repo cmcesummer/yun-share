@@ -10,4 +10,8 @@ document.addEventListener("drop", e => {
     e.preventDefault();
 });
 
+document.oncontextmenu = function(e) {
+    e.preventDefault();
+};
+
 ReactDOM.render(<App />, document.getElementById("root"));
