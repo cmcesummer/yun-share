@@ -1,4 +1,3 @@
-"use strict";
 const { spawn } = require("child_process");
 const errorOverlayMiddleware = require("react-dev-utils/errorOverlayMiddleware");
 const evalSourceMapMiddleware = require("react-dev-utils/evalSourceMapMiddleware");
