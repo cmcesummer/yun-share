@@ -38,6 +38,7 @@ dl {
         background: rgb(250, 250, 250);
         height: 100%;
         overflow: auto;
+        position: relative;
         @include scrollbar();
         li {
             position: relative;
