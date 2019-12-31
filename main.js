@@ -26,6 +26,7 @@ function createWindow() {
         titleBarStyle: "hidden", // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
         webPreferences: {
             backgroundThrottling: false // 当页面被置于非激活窗口的时候是否停止动画和计时器
+            // nodeIntegration: true // 不集成 Nodejs
         }
     };
     if (process.platform === "win32") {
@@ -68,6 +69,8 @@ function createWindow() {
     });
 }
 // makeSingleInstance();
+
+// console.log(`=====`, app.getPath("userData"));
 
 //app主进程的事件和方法
 app.on("ready", () => {
