@@ -1,0 +1,35 @@
+.ys-right-click-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    .ys-right-click-bg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+    .ys-right-click-box {
+        position: absolute;
+        padding: 10px 20px;
+        box-shadow: 0px 0px 38px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+}
+.ys-create-file-modal {
+    .ys-create-file-msg {
+        color: red;
+    }
+    .ys-create-file-path {
+        color: #999999;
+        margin-top: 12px;
+    }
+    .ys-create-file-path,
+    .ys-create-file-msg {
+        font-size: 12px;
+        display: block;
+    }
+}

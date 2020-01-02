@@ -1,0 +1,33 @@
+.ys-md-box {
+    display: flex;
+    height: 100%;
+    &.ys-md-show-e {
+        .ys-codemirror,
+        .ys-react-md {
+            display: block;
+            height: 100%;
+            width: 50%;
+        }
+    }
+    .ys-react-md {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+    }
+    .ys-codemirror {
+        display: none;
+    }
+}
+
+.CodeMirror {
+    border: 1px solid #eee;
+    height: 100%;
+}
+
+.ys-react-md {
+    padding: 0 14px;
+    pre {
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+    }
+}
