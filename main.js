@@ -1,5 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
+require("./mainThread/rpc");
+require("./mainThread/global");
 
 const DEV_ENV = process.env.NODE_ENV === "development";
 
@@ -25,8 +27,8 @@ function createWindow() {
         transparent: true, // 是否是透明窗口（仅macOS）
         titleBarStyle: "hidden", // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
         webPreferences: {
-            backgroundThrottling: false // 当页面被置于非激活窗口的时候是否停止动画和计时器
-            // nodeIntegration: true // 不集成 Nodejs
+            backgroundThrottling: false, // 当页面被置于非激活窗口的时候是否停止动画和计时器
+            nodeIntegration: true
         }
     };
     if (process.platform === "win32") {
@@ -38,7 +40,10 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 950,
         height: 700,
-        backgroundColor: "#021524"
+        backgroundColor: "#021524",
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
     mainWindow.loadURL(loadUrl);
     //接收渲染进程的信息

@@ -13,9 +13,18 @@ const parseHtml = htmlParser({
 });
 
 export default class MarkDown extends BaseComponent {
-    state = {
-        value: ""
-    };
+    constructor(props) {
+        super(props);
+        const { value = "" } = props;
+        this.state = { value };
+    }
+
+    componentDidUpdate(lp, ls) {
+        const { value } = this.props;
+        if (value && lp.value !== value) {
+            this.setState({ value });
+        }
+    }
 
     @AutoBind
     editScroll(e, pos) {

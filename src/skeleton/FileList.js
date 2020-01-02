@@ -5,31 +5,34 @@ import bind from "../Hoc/bind";
 import { ContainerStoreName } from "../utils/constant";
 import RightClickMenu from "../components/RightClickMenu";
 
-const map = [
-    {
-        title: "titleeeeetitleeeeetitleeeeetitleeeee",
-        time: "11-9"
-    },
-    {
-        title: "s",
-        time: "11-9"
-    },
-    {
-        title: "titleeeeetitleeeeetitleeeeetitleeeee",
-        time: "11-9"
-    },
-    {
-        title: "aa",
-        time: "11-9"
-    }
-];
+const { ipcRenderer } = require("electron");
 
 @bind()
 class FileList extends BaseComponent {
+    state = {
+        fileList: []
+    };
+
+    constructor(props) {
+        super(props);
+        ipcRenderer.send("GET_FILE_LIST");
+        ipcRenderer.on("GET_FILE_LIST_BACK", (e, arg) => {
+            const { REV, DATA } = arg;
+            if (!REV) return;
+            this.setState({ fileList: DATA });
+        });
+        const { setValue } = props;
+        ipcRenderer.on("GET_FILE_CONTENT_BACK", async (ev, arg) => {
+            // setValue(ContainerStoreName, { fileInfo: item });
+            const { REV, DATA } = arg;
+            if (!REV) return;
+            setValue(ContainerStoreName, { fileInfo: DATA });
+        });
+    }
+
     @AutoBind
     click(item) {
-        const { setValue } = this.props;
-        setValue(ContainerStoreName, { fileInfo: item });
+        ipcRenderer.send("GET_FILE_CONTENT", item);
     }
 
     @AutoBind
@@ -41,16 +44,17 @@ class FileList extends BaseComponent {
     }
 
     render() {
+        const { fileList = [] } = this.state;
         return (
             <>
-                <ul className="ys-filelist" onMouseUp={this.onMouseUp} ref={ref => (this.box = ref)}>
-                    {map.map((item, index) => (
-                        <li key={index} onClick={this.click.bind(this, item)}>
+                <div className="ys-filelist" onMouseUp={this.onMouseUp} ref={ref => (this.box = ref)}>
+                    {fileList.map(item => (
+                        <div key={item.title} className="ys-filelist-li" onClick={this.click.bind(this, item)}>
                             <div className="title">{item.title}</div>
                             <div className="time">{item.time}</div>
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                </div>
                 <RightClickMenu ref={ref => (this.menu = ref)}></RightClickMenu>
             </>
         );

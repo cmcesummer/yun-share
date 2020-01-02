@@ -19,13 +19,6 @@ code {
     bottom: 0;
 }
 
-ol,
-ul,
-dl {
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
 .App {
     position: absolute;
     top: 60px;
@@ -40,7 +33,7 @@ dl {
         overflow: auto;
         position: relative;
         @include scrollbar();
-        li {
+        .ys-filelist-li {
             position: relative;
             padding: 16px 24px;
             color: $base-light-font-color;

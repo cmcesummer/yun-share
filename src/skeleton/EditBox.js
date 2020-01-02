@@ -29,11 +29,12 @@ class EditBox extends BaseComponent {
 
     render() {
         const { showEdit } = this.state;
+        console.log(`====`, this.props.fileInfo);
         return (
             <section className="eidtbox">
                 <div className="eidtbox-topbar">{this.props.fileInfo && this.props.fileInfo.title}</div>
                 <div className="eidtbox-body">
-                    <MarkDown showEdit={showEdit} onSave={this.onSave} />
+                    <MarkDown showEdit={showEdit} onSave={this.onSave} value={this.props.fileInfo && this.props.fileInfo.content} />
                     <div className="eidtbox-ctrlbar">
                         <ButtonExt onClick={this.changeEdit}>{showEdit ? `预览` : `编辑`}</ButtonExt>
                     </div>

@@ -5,14 +5,30 @@ import "./index.scss";
 import ButtonExt from "../Button";
 import AutoBind from "../../utils/Autobind";
 import { Modal, Input } from "antd";
+const { ipcRenderer, remote } = require("electron");
+
+const CREATE_FILE = "CREATE_FILE";
 
 export default class RightClickMenu extends BaseComponent {
     state = {
         display: "none",
         x: 0,
         y: 0,
-        visible: false
+        visible: false,
+        msg: ""
     };
+
+    constructor(props) {
+        super(props);
+        ipcRenderer.on(`${CREATE_FILE}_BACK`, (e, arg) => {
+            const { REV, MSG } = arg;
+            if (!REV) {
+                this.setState({ msg: MSG });
+            } else {
+                this.handleCancel();
+            }
+        });
+    }
 
     fileName = null;
 
@@ -52,11 +68,15 @@ export default class RightClickMenu extends BaseComponent {
     @AutoBind
     handleOk() {
         const name = this.fileName;
-        window.electron.ipcRenderer.send("CREATE_FILE", { name });
+        if (!name) return this.setState({ msg: "请填写文件名称" });
+        ipcRenderer.send(CREATE_FILE, { name: `${name}.md` });
     }
 
     @AutoBind
-    handleCancel() {}
+    handleCancel() {
+        this.setState({ visible: false, msg: "" });
+        this.fileName = null;
+    }
 
     @AutoBind
     getFileName(e) {
@@ -67,8 +87,10 @@ export default class RightClickMenu extends BaseComponent {
         return (
             <>
                 {ReactDOM.createPortal(this.renderCore(), document.body)}
-                <Modal title="新建" visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel}>
+                <Modal className="ys-create-file-modal" title="新建" visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel}>
                     <Input addonBefore="文件名：" addonAfter=".md" onChange={this.getFileName} />
+                    <span className="ys-create-file-msg">{this.state.msg}</span>
+                    <span className="ys-create-file-path">注：存储路径{remote.getGlobal("SAVE_FILE_DIR")}</span>
                 </Modal>
             </>
         );

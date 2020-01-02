@@ -19,3 +19,17 @@
         border-radius: 5px;
     }
 }
+.ys-create-file-modal {
+    .ys-create-file-msg {
+        color: red;
+    }
+    .ys-create-file-path {
+        color: #999999;
+        margin-top: 12px;
+    }
+    .ys-create-file-path,
+    .ys-create-file-msg {
+        font-size: 12px;
+        display: block;
+    }
+}
