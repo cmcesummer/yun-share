@@ -70,7 +70,11 @@ code {
     position: relative;
     .eidtbox-topbar {
         height: 44px;
-        padding: 6px 10px;
+        line-height: 44px;
+        font-size: 22px;
+        padding: 0 10px;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         button {
             float: right;
         }

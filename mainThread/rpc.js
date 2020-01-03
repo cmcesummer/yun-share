@@ -13,13 +13,19 @@ fs.ensureDir(FILE_DIR);
 ipc.on("CREATE_FILE", async (e, arg) => {
     const { name } = arg;
     const rev = await fs.exists(path.join(FILE_DIR, name));
-    console.log(e, rev);
     if (!rev) {
         await fs.writeFile(path.join(FILE_DIR, name), "", "utf8");
         e.sender.send("CREATE_FILE_BACK", { REV: true });
     } else {
         e.sender.send("CREATE_FILE_BACK", { REV: false, MSG: "存在同名文件" });
     }
+});
+
+// 删除文件
+ipc.on("DELETE_FILE", async (e, arg) => {
+    const { dir } = arg;
+    await fs.unlink(dir);
+    e.sender.send("DELETE_FILE_BACK", { REV: true });
 });
 
 exports.SAVE_FILE_DIR = FILE_DIR;
@@ -53,6 +59,18 @@ ipc.on("GET_FILE_CONTENT", async (ev, arg) => {
         ev.sender.send("GET_FILE_CONTENT_BACK", { REV: true, DATA: { ...arg, content } });
     } catch (e) {
         ev.sender.send("GET_FILE_CONTENT_BACK", { REV: false, MSG: "获取内容出错" });
+        console.log(e);
+    }
+});
+
+// 保存文件、写入内容
+ipc.on("SET_FILE_CONTENT", async (ev, arg) => {
+    const { dir, content } = arg;
+    try {
+        await fs.writeFile(dir, content, "utf8");
+        ev.sender.send("SET_FILE_CONTENT_BACK", { REV: true });
+    } catch (e) {
+        ev.sender.send("SET_FILE_CONTENT_BACK", { REV: false, MSG: "写入内容出错" });
         console.log(e);
     }
 });

@@ -10,7 +10,8 @@ const { ipcRenderer } = require("electron");
 @bind()
 class FileList extends BaseComponent {
     state = {
-        fileList: []
+        fileList: [],
+        chooseTitle: ""
     };
 
     constructor(props) {
@@ -23,7 +24,6 @@ class FileList extends BaseComponent {
         });
         const { setValue } = props;
         ipcRenderer.on("GET_FILE_CONTENT_BACK", async (ev, arg) => {
-            // setValue(ContainerStoreName, { fileInfo: item });
             const { REV, DATA } = arg;
             if (!REV) return;
             setValue(ContainerStoreName, { fileInfo: DATA });
@@ -31,31 +31,50 @@ class FileList extends BaseComponent {
     }
 
     @AutoBind
+    closeContent() {
+        this.props.setValue(ContainerStoreName, { fileInfo: null });
+    }
+
+    @AutoBind
     click(item) {
         ipcRenderer.send("GET_FILE_CONTENT", item);
+        this.setState({ chooseTitle: item.title });
     }
 
     @AutoBind
     onMouseUp(e) {
-        if (e.button === 2 && e.target.className === "ys-filelist") {
-            if (!this.menu) return;
+        if (!this.menu) return;
+        if (e.button !== 2) return;
+        if (e.target.className === "ys-filelist") {
             this.menu.show({ x: e.clientX, y: e.clientY + 10 });
         }
     }
 
+    @AutoBind
+    itemMouseUp(item, e) {
+        if (!this.menu) return;
+        if (e.button !== 2) return;
+        this.menu.show({ x: e.clientX, y: e.clientY + 10, dir: item.dir });
+    }
+
     render() {
-        const { fileList = [] } = this.state;
+        const { fileList = [], chooseTitle } = this.state;
         return (
             <>
                 <div className="ys-filelist" onMouseUp={this.onMouseUp} ref={ref => (this.box = ref)}>
                     {fileList.map(item => (
-                        <div key={item.title} className="ys-filelist-li" onClick={this.click.bind(this, item)}>
+                        <div
+                            key={item.title}
+                            className={`ys-filelist-li ${item.title === chooseTitle ? "active" : ""}`}
+                            onMouseUp={this.itemMouseUp.bind(this, item)}
+                            onClick={this.click.bind(this, item)}
+                        >
                             <div className="title">{item.title}</div>
                             <div className="time">{item.time}</div>
                         </div>
                     ))}
                 </div>
-                <RightClickMenu ref={ref => (this.menu = ref)}></RightClickMenu>
+                <RightClickMenu ref={ref => (this.menu = ref)} closeContent={this.closeContent}></RightClickMenu>
             </>
         );
     }

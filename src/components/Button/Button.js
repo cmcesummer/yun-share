@@ -11,11 +11,15 @@ export default class ButtonExt extends BaseComponent {
     }
 
     render() {
-        const { onClick, ...other } = this.props;
-        return (
+        const { onClick, ant, ...other } = this.props;
+        return ant ? (
             <Button onClick={this.click} {...other}>
                 {this.props.children}
             </Button>
+        ) : (
+            <div onClick={this.click} {...other}>
+                {this.props.children}
+            </div>
         );
     }
 }
