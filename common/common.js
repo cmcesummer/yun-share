@@ -1,3 +1,6 @@
+const fs = require("fs-extra");
+const path = require("path");
+
 exports.timeFormat = function(time, fmt) {
     const date = new Date(Number(time) < 10000000000 ? Number(time) * 1000 : Number(time)); //对于只有10位数的时间做*1000处理
     const o = {
@@ -30,4 +33,23 @@ exports.timeFormat = function(time, fmt) {
         }
     }
     return fmt;
+};
+
+const htmlCss = fs.readFileSync(path.join(__dirname, "../public/md.css"));
+
+exports.renderMToHtml = (title, html) => {
+    return `<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>${title}</title>
+        <style>${htmlCss}</style>
+    </head>
+    <body class="markdown-body" style="padding: 10px">
+        ${html}
+    </body>
+</html>
+`;
 };

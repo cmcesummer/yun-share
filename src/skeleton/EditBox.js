@@ -60,6 +60,13 @@ class EditBox extends BaseComponent {
         }
     }
 
+    @AutoBind
+    saveToHtml() {
+        const html = this.md.innerHtml();
+        if (!html) return;
+        ipcRenderer.send("SAVE_TO_HTML_DIALOG", { title: this.props.fileInfo.title, html });
+    }
+
     renderCore() {
         const { showEdit } = this.state;
         return (
@@ -77,6 +84,9 @@ class EditBox extends BaseComponent {
                     <div className="eidtbox-ctrlbar">
                         <ButtonExt onClick={this.changeEdit} ant>
                             {showEdit ? `预览` : `编辑`}
+                        </ButtonExt>
+                        <ButtonExt onClick={this.saveToHtml} ant>
+                            导出
                         </ButtonExt>
                     </div>
                 </div>

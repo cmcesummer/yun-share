@@ -1,9 +1,9 @@
 const path = require("path");
 const ipc = require("electron").ipcMain;
-const { app } = require("electron");
+const { app, dialog } = require("electron");
 const fs = require("fs-extra");
 
-const { timeFormat } = require("../common/common");
+const { timeFormat, renderMToHtml } = require("../common/common");
 
 const FILE_DIR = path.join(app.getPath("userData"), "./userFile");
 
@@ -73,4 +73,23 @@ ipc.on("SET_FILE_CONTENT", async (ev, arg) => {
         ev.sender.send("SET_FILE_CONTENT_BACK", { REV: false, MSG: "写入内容出错" });
         console.log(e);
     }
+});
+
+// 弹出保存文件路径对话框
+ipc.on("SAVE_TO_HTML_DIALOG", async (ev, arg) => {
+    const { title, html } = arg;
+    const { canceled, filePath } = await dialog.showSaveDialog({
+        title: "保存文件",
+        filters: [
+            { name: "Html", extensions: ["html"] },
+            { name: "All Files", extensions: ["*"] }
+        ],
+        defaultPath: `${title}.html`
+    });
+    if (canceled) {
+        ev.sender.send("SAVE_TO_HTML_DIALOG_BACK", { REV: false, MSG: "取消", CODE: -1 });
+        return;
+    }
+    await fs.writeFile(filePath, renderMToHtml(title, html), "utf8");
+    ev.sender.send("SAVE_TO_HTML_DIALOG_BACK", { REV: true });
 });

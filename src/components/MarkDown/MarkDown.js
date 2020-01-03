@@ -47,6 +47,12 @@ export default class MarkDown extends BaseComponent {
         if (onSave) onSave(value, e);
     }
 
+    @AutoBind
+    innerHtml() {
+        if (!this.mdbox) return;
+        return this.mdbox.innerHTML;
+    }
+
     render() {
         const { showEdit = false } = this.props;
 
@@ -63,7 +69,7 @@ export default class MarkDown extends BaseComponent {
                     />
                 </IF>
                 <div
-                    className="ys-react-md"
+                    className="ys-react-md markdown-body"
                     ref={ref => {
                         this.mdbox = ref;
                     }}
