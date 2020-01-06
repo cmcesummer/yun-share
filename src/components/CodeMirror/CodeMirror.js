@@ -22,9 +22,7 @@ function upImage({ url, file, codem }) {
 export default class CodeMirror extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            value: props.defaultValue || ""
-        };
+        this.state = { value: props.defaultValue || "" };
     }
 
     @AutoBind

@@ -5,6 +5,7 @@ import "./index.scss";
 import ButtonExt from "../Button";
 import AutoBind from "../../utils/Autobind";
 import { Modal, Input } from "antd";
+import IF from "../IF";
 const { ipcRenderer, remote } = require("electron");
 
 const CREATE_FILE = "CREATE_FILE";
@@ -25,8 +26,15 @@ export default class RightClickMenu extends BaseComponent {
             if (!REV) {
                 this.setState({ msg: MSG });
             } else {
+                ipcRenderer.send("GET_FILE_LIST");
                 this.handleCancel();
             }
+        });
+        ipcRenderer.on("DELETE_FILE_BACK", (e, arg) => {
+            const { REV } = arg;
+            if (!REV) return;
+            ipcRenderer.send("GET_FILE_LIST");
+            props.closeContent();
         });
     }
 
@@ -34,11 +42,12 @@ export default class RightClickMenu extends BaseComponent {
 
     @AutoBind
     show(map) {
-        const { x, y } = map;
+        const { x, y, dir } = map;
         this.setState({
             x,
             y,
-            display: "block"
+            display: "block",
+            dir
         });
     }
 
@@ -53,13 +62,26 @@ export default class RightClickMenu extends BaseComponent {
         this.setState({ visible: true });
     }
 
+    @AutoBind
+    deleteFile() {
+        this.hidden();
+        ipcRenderer.send("DELETE_FILE", { dir: this.state.dir });
+    }
+
     renderCore() {
-        const { display, x = 0, y = 0 } = this.state;
+        const { display, x = 0, y = 0, dir } = this.state;
         return (
             <div className="ys-right-click-modal" style={{ display }}>
                 <div className="ys-right-click-bg" onClick={this.hidden}></div>
                 <div className="ys-right-click-box" style={{ top: y, left: x }}>
-                    <ButtonExt onClick={this.newMdFile}>新建md</ButtonExt>
+                    <ButtonExt className="btn" onClick={this.newMdFile}>
+                        新建文件
+                    </ButtonExt>
+                    <IF flag={dir}>
+                        <ButtonExt className="btn" onClick={this.deleteFile}>
+                            删除文件
+                        </ButtonExt>
+                    </IF>
                 </div>
             </div>
         );

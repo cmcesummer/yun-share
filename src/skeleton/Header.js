@@ -7,7 +7,7 @@ import bind from "../Hoc/bind";
 class Header extends BaseComponent {
     render() {
         const { loading = true } = this.props;
-        console.log(loading);
+        console.log(`loading: `, loading);
         return (
             <header className="ys-header">
                 <h1>yun-share</h1>

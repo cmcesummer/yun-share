@@ -5,6 +5,7 @@ import CodeMirror from "./../CodeMirror";
 import AutoBind from "../../utils/Autobind";
 // import DecoratorUtils from "../../utils/DecoratorUtils";
 import "./index.scss";
+import IF from "../IF";
 // import { sendFile } from "../../utils/http";
 
 const htmlParser = require("react-markdown/plugins/html-parser");
@@ -16,13 +17,13 @@ export default class MarkDown extends BaseComponent {
     constructor(props) {
         super(props);
         const { value = "" } = props;
-        this.state = { value };
+        this.state = { value, defaultValue: value };
     }
 
     componentDidUpdate(lp, ls) {
         const { value } = this.props;
-        if (value && lp.value !== value) {
-            this.setState({ value });
+        if (value !== void 0 && lp.value !== value) {
+            this.setState({ value, defaultValue: value });
         }
     }
 
@@ -46,19 +47,29 @@ export default class MarkDown extends BaseComponent {
         if (onSave) onSave(value, e);
     }
 
+    @AutoBind
+    innerHtml() {
+        if (!this.mdbox) return;
+        return this.mdbox.innerHTML;
+    }
+
     render() {
         const { showEdit = false } = this.props;
+
         return (
             <div className={`ys-md-box ${showEdit ? "ys-md-show-e" : ""}`}>
-                <CodeMirror
-                    actionUrl={`http://iad.test.jj.cn:7001/cloudplt/api/oss/upload?gameId=1&sname=publicui&t=&collectFile=false&matType=2&uzip=undefined&up=undefined`}
-                    className="ys-codemirror"
-                    onSave={this.onSave}
-                    onScroll={this.editScroll}
-                    onChange={this.onChange}
-                />
+                <IF flag={showEdit}>
+                    <CodeMirror
+                        actionUrl={``}
+                        className="ys-codemirror"
+                        onSave={this.onSave}
+                        onScroll={this.editScroll}
+                        onChange={this.onChange}
+                        defaultValue={this.state.value}
+                    />
+                </IF>
                 <div
-                    className="ys-react-md"
+                    className="ys-react-md markdown-body"
                     ref={ref => {
                         this.mdbox = ref;
                     }}
