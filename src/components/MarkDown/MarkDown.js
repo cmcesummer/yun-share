@@ -60,7 +60,7 @@ export default class MarkDown extends BaseComponent {
             <div className={`ys-md-box ${showEdit ? "ys-md-show-e" : ""}`}>
                 <IF flag={showEdit}>
                     <CodeMirror
-                        actionUrl={`http://iad.test.jj.cn:7001/cloudplt/api/oss/upload?gameId=1&sname=publicui&t=&collectFile=false&matType=2&uzip=undefined&up=undefined`}
+                        actionUrl={``}
                         className="ys-codemirror"
                         onSave={this.onSave}
                         onScroll={this.editScroll}
