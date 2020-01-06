@@ -40,21 +40,6 @@ class Container extends BaseComponent {
             <div className="App">
                 <FileList />
                 <EditBox />
-                {/* <header className="App-header">
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <Button type="primary" onClick={this.showModal}>
-                        Open Modal
-                    </Button>
-                    {this.state.visible ? (
-                        <Modal title="Basic Modal" visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel}>
-                            <Content />
-                        </Modal>
-                    ) : null}
-
-                    <p>this.props.value: {this.props.value}</p>
-                </header> */}
             </div>
         );
     }

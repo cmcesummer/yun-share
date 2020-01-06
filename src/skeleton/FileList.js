@@ -69,8 +69,11 @@ class FileList extends BaseComponent {
                             onMouseUp={this.itemMouseUp.bind(this, item)}
                             onClick={this.click.bind(this, item)}
                         >
-                            <div className="title">{item.title}</div>
-                            <div className="time">{item.time}</div>
+                            <div className="bg"></div>
+                            <div className="content">
+                                <div className="title">{item.title}</div>
+                                <div className="time">{item.time}</div>
+                            </div>
                         </div>
                     ))}
                 </div>

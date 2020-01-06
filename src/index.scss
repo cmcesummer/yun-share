@@ -41,14 +41,32 @@ code {
         @include scrollbar();
         .ys-filelist-li {
             position: relative;
-            padding: 16px 24px;
             color: $base-light-font-color;
             cursor: pointer;
             font-size: 0;
+            position: relative;
+            overflow: hidden;
+            // padding: 16px 24px;
+            height: 56px;
+            .bg,
+            .content {
+                @include position-full;
+            }
+            .content {
+                padding: 0 24px;
+                height: 56px;
+                line-height: 56px;
+            }
             &:hover,
             &.active {
-                background: rgb(242, 242, 242);
+                .bg {
+                    background: url(./imgs/btnsbg.png);
+                    //  background: rgba(234, 236, 239, 0.8);
+                    background-size: cover;
+                    filter: blur(5px);
+                }
             }
+
             .title {
                 overflow: hidden;
                 width: 200px;
