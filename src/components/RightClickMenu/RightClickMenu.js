@@ -32,6 +32,7 @@ export default class RightClickMenu extends BaseComponent {
         });
         ipcRenderer.on("DELETE_FILE_BACK", (e, arg) => {
             const { REV } = arg;
+            console.log(REV);
             if (!REV) return;
             ipcRenderer.send("GET_FILE_LIST");
             props.closeContent();
@@ -110,7 +111,7 @@ export default class RightClickMenu extends BaseComponent {
             <>
                 {ReactDOM.createPortal(this.renderCore(), document.body)}
                 <Modal className="ys-create-file-modal" title="新建" visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel}>
-                    <Input addonBefore="文件名：" addonAfter=".md" onChange={this.getFileName} />
+                    {this.state.visible ? <Input addonBefore="文件名：" addonAfter=".md" onChange={this.getFileName} /> : null}
                     <span className="ys-create-file-msg">{this.state.msg}</span>
                     <span className="ys-create-file-path">注：存储路径{remote.getGlobal("SAVE_FILE_DIR")}</span>
                 </Modal>

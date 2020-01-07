@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
+const { format } = require("url");
 const path = require("path");
 require("./mainThread/rpc");
 require("./mainThread/global");
@@ -8,7 +9,14 @@ const DEV_ENV = process.env.NODE_ENV === "development";
 // 开发时开启debug
 const debug = DEV_ENV === true;
 
-const loadUrl = DEV_ENV ? "http://localhost:3002/" : path.join("file://", __dirname, "/build/index.html");
+const loadUrl = DEV_ENV
+    ? "http://localhost:3002/"
+    : format({
+          pathname: path.join(__dirname, "index.html"),
+          protocol: "file",
+          slashes: true
+      });
+//   path.join("file://", __dirname, "/build/index.html");
 
 let mainWindow = null;
 
@@ -38,8 +46,9 @@ function createWindow() {
         options.backgroundColor = "#3f3c37"; // 背景色
     }
     mainWindow = new BrowserWindow({
-        width: 950,
+        width: 1000,
         height: 700,
+        minWidth: 1000,
         backgroundColor: "#021524",
         webPreferences: {
             nodeIntegration: true
@@ -80,6 +89,16 @@ function createWindow() {
 //app主进程的事件和方法
 app.on("ready", () => {
     createWindow();
+    Menu.setApplicationMenu(
+        Menu.buildFromTemplate([
+            {
+                label: "devTool",
+                click() {
+                    mainWindow.webContents.openDevTools();
+                }
+            }
+        ])
+    );
 });
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {

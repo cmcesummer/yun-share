@@ -30,7 +30,6 @@ code {
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
     .ys-filelist {
         width: 300px;
         border-right: 1px solid #eaecef;
@@ -85,12 +84,14 @@ code {
         }
     }
     .eidtbox {
-        flex: 1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 300px;
     }
 }
 .eidtbox {
-    width: 100%;
-    height: 100%;
     position: relative;
     .eidtbox-topbar {
         height: 44px;
@@ -109,9 +110,12 @@ code {
         left: 0;
         right: 0;
         bottom: 0;
-        display: flex;
     }
     .eidtbox-ctrlbar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
         width: 80px;
         background: #fafafa;
         & button {
@@ -120,7 +124,11 @@ code {
         }
     }
     .ys-md-box {
-        flex: 1;
+        position: absolute;
+        top: 0;
+        right: 80px;
+        bottom: 0;
+        left: 0;
     }
 }
 .ys-header {

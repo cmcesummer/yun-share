@@ -34,8 +34,8 @@ exports.timeFormat = function(time, fmt) {
     }
     return fmt;
 };
-
-const htmlCss = fs.readFileSync(path.join(__dirname, "../public/md.css"));
+const DEV_ENV = process.env.NODE_ENV === "development";
+const htmlCss = DEV_ENV ? fs.readFileSync(path.join(__dirname, "../../public/md.css")) : fs.readFileSync(path.join(__dirname, "../md.css"));
 
 exports.renderMToHtml = (title, html) => {
     return `<!DOCTYPE html>
