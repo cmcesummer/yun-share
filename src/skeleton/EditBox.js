@@ -54,7 +54,6 @@ class EditBox extends BaseComponent {
         // 本地保存成文件
         if (this.cacheFileValue !== value) {
             this.props.setValue("Header", { loading: true });
-            console.log(value);
             this.cacheFileValue = value;
             ipcRenderer.send("SET_FILE_CONTENT", { ...this.props.fileInfo, content: value });
         }
@@ -73,14 +72,12 @@ class EditBox extends BaseComponent {
             <section className="eidtbox">
                 <div className="eidtbox-topbar">{this.props.fileInfo && this.props.fileInfo.title}</div>
                 <div className="eidtbox-body">
-                    {console.log(this.props.fileInfo && this.props.fileInfo.content)}
                     <MarkDown
                         ref={ref => (this.md = ref)}
                         showEdit={showEdit}
                         onSave={this.onSave}
                         value={this.props.fileInfo && this.props.fileInfo.content}
                     />
-
                     <div className="eidtbox-ctrlbar">
                         <ButtonExt onClick={this.changeEdit} ant>
                             {showEdit ? `预览` : `编辑`}

@@ -3,7 +3,7 @@ const ipc = require("electron").ipcMain;
 const { app, dialog } = require("electron");
 const fs = require("fs-extra");
 
-const { timeFormat, renderMToHtml } = require("../common/common");
+const { timeFormat, renderMToHtml } = require("./common");
 
 const FILE_DIR = path.join(app.getPath("userData"), "./userFile");
 
@@ -43,8 +43,8 @@ ipc.on("GET_FILE_LIST", async (ev, arg) => {
             const time = timeFormat(Math.floor(stat.mtimeMs), "MM-dd");
             const filename = file.replace(path.extname(file), "");
             arr.push({ dir, time, title: filename });
-            ev.sender.send(GET_FILE_LIST_BACK, { REV: true, DATA: arr });
         }
+        ev.sender.send(GET_FILE_LIST_BACK, { REV: true, DATA: arr });
     } catch (e) {
         ev.sender.send(GET_FILE_LIST_BACK, { REV: false, MSG: "获取列表出错" });
         console.log(e);
