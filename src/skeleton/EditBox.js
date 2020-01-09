@@ -78,7 +78,7 @@ class EditBox extends BaseComponent {
                         onSave={this.onSave}
                         value={this.props.fileInfo && this.props.fileInfo.content}
                     />
-                    <div className="eidtbox-ctrlbar">
+                    <div className="eidtbox-ctrlbar un-text">
                         <ButtonExt onClick={this.changeEdit} ant>
                             {showEdit ? `预览` : `编辑`}
                         </ButtonExt>

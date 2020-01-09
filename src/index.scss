@@ -24,12 +24,17 @@ code {
     background: rgba(255, 255, 255, 0.9);
 }
 
+.un-text {
+    user-select: none;
+}
+
 .App {
     position: absolute;
     top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
+    border: 1px solid #999;
     .ys-filelist {
         width: 300px;
         border-right: 1px solid #eaecef;
@@ -139,6 +144,9 @@ code {
     box-shadow: 0 2px 8px #f0f1f2;
     min-width: 400px;
     padding: 0 20px;
+    border: 1px solid #999;
+    border-bottom: none;
+    -webkit-app-region: drag;
     h1 {
         font-size: 18px;
         color: $base-dark-font-color;
@@ -150,5 +158,29 @@ code {
     }
     .anticon-loading {
         margin-left: 20px;
+    }
+    .ctrl-win-box {
+        position: absolute;
+        top: 0;
+        right: 0;
+        -webkit-app-region: no-drag;
+        & > div {
+            width: 46px;
+            height: 30px;
+            line-height: 30px;
+            display: inline-block;
+            text-align: center;
+            &:hover {
+                background-color: rgba(163, 193, 255, 0.6);
+            }
+        }
+        .close {
+            &:hover {
+                background-color: red;
+                .icon {
+                    color: #fff;
+                }
+            }
+        }
     }
 }

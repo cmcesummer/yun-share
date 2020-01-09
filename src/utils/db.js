@@ -10,7 +10,7 @@ request.onerror = function(event) {
 
 request.onsuccess = function(event) {
     db = request.result;
-    console.log("数据库打开成功", db);
+    // console.log("数据库打开成功", db);
 };
 
 const TABLE_NAME = "localList";

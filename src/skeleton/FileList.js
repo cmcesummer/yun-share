@@ -19,10 +19,8 @@ class FileList extends BaseComponent {
         ipcRenderer.send("GET_FILE_LIST");
         ipcRenderer.on("GET_FILE_LIST_BACK", (e, arg) => {
             const { REV, DATA } = arg;
-            console.log(REV, DATA);
             if (!REV) return;
             this.setState({ fileList: DATA });
-            console.log(DATA);
         });
         const { setValue } = props;
         ipcRenderer.on("GET_FILE_CONTENT_BACK", async (ev, arg) => {
@@ -63,7 +61,7 @@ class FileList extends BaseComponent {
         const { fileList = [], chooseTitle } = this.state;
         return (
             <>
-                <div className="ys-filelist" onMouseUp={this.onMouseUp} ref={ref => (this.box = ref)}>
+                <div className="ys-filelist un-text" onMouseUp={this.onMouseUp} ref={ref => (this.box = ref)}>
                     {fileList.map(item => (
                         <div
                             key={item.title}

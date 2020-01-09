@@ -38,3 +38,8 @@ npm run build:electron:win
 -   [x] md 导出为 html
 -   md 导出为 pdf
 -   换肤
+
+## BUG LIST
+
+-   [x] 使用 `{ frame: false }` 时，先触发 `win.hide()`，再触发`win.show()`，主界面会有闪动的 bug
+    -   解决方案： `win` 下 需要设置 `{ transparent: false }` , 才不会有闪烁。 坑死了，浪费了一下午找这个 bug。

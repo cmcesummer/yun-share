@@ -74,7 +74,7 @@ export default class RightClickMenu extends BaseComponent {
         return (
             <div className="ys-right-click-modal" style={{ display }}>
                 <div className="ys-right-click-bg" onClick={this.hidden}></div>
-                <div className="ys-right-click-box" style={{ top: y, left: x }}>
+                <div className="ys-right-click-box un-text" style={{ top: y, left: x }}>
                     <ButtonExt className="btn" onClick={this.newMdFile}>
                         新建文件
                     </ButtonExt>

@@ -1,6 +1,6 @@
 {
     "name": "yun-share",
-    "version": "0.1.1",
+    "version": "0.1.3",
     "private": true,
     "description": "share",
     "author": "cmce",
@@ -15,12 +15,12 @@
         "electrons": "electron .",
         "dev": "cross-env PORT=3002 ELECTRON=true node scripts/start.js",
         "check": "node scripts/check.js",
-        "win": "clean && electron-builder --win",
+        "win": "npm run clean && electron-builder --win",
         "mac": "electron-builder --mac",
-        "clean": "rm -rf ./build/releases/",
+        "clean": "rm -rf ./releases/",
         "copy:electron": "cp -r ./app/. ./build",
         "build:copy": "npm run build && npm run copy:electron",
-        "build:electron:win": "npm run build:copy && npm run win"
+        "build:electron:win": "rm -rf ./build/ && npm run build:copy && npm run win"
     },
     "build": {
         "productName": "yun-share",
@@ -29,7 +29,7 @@
             "build/**/*"
         ],
         "directories": {
-            "output": "build/releases"
+            "output": "releases"
         },
         "dmg": {
             "contents": [
