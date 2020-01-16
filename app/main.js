@@ -24,7 +24,9 @@ let mainWindow = null;
 function createWindow() {
     const options = {
         width: 1000,
+        minWidth: 1000,
         height: 700,
+        minHeight: 700,
         backgroundColor: "rgba(255, 255, 255, 0.9)",
         show: false, // 创建后是否显示
         frame: true, // 是否创建frameless窗口

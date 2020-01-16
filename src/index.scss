@@ -28,13 +28,35 @@ code {
     user-select: none;
 }
 
+.hidden {
+    display: none;
+}
+
+.text-show-1-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin common-line-clamp {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.text-show-2-line {
+    @include common-line-clamp;
+    -webkit-line-clamp: 2;
+}
+
 .App {
     position: absolute;
     top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
-    border: 1px solid #999;
+    // border: 1px solid #999;
     .ys-filelist {
         width: 300px;
         border-right: 1px solid #eaecef;
@@ -94,6 +116,9 @@ code {
         right: 0;
         bottom: 0;
         left: 300px;
+        &.eidt-full {
+            left: 0;
+        }
     }
 }
 .eidtbox {
@@ -105,8 +130,12 @@ code {
         padding: 0 10px;
         font-weight: 600;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        position: relative;
         button {
-            float: right;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
         }
     }
     .eidtbox-body {
@@ -144,8 +173,6 @@ code {
     box-shadow: 0 2px 8px #f0f1f2;
     min-width: 400px;
     padding: 0 20px;
-    border: 1px solid #999;
-    border-bottom: none;
     -webkit-app-region: drag;
     h1 {
         font-size: 18px;

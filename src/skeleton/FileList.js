@@ -7,7 +7,7 @@ import RightClickMenu from "../components/RightClickMenu";
 
 const { ipcRenderer } = require("electron");
 
-@bind()
+@bind("FileList", { isHidden: false })
 class FileList extends BaseComponent {
     state = {
         fileList: [],
@@ -61,7 +61,7 @@ class FileList extends BaseComponent {
         const { fileList = [], chooseTitle } = this.state;
         return (
             <>
-                <div className="ys-filelist un-text" onMouseUp={this.onMouseUp} ref={ref => (this.box = ref)}>
+                <div className={`ys-filelist un-text ${this.props.isHidden ? "hidden" : ""}`} onMouseUp={this.onMouseUp} ref={ref => (this.box = ref)}>
                     {fileList.map(item => (
                         <div
                             key={item.title}
