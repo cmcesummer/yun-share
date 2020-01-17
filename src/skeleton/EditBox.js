@@ -47,16 +47,16 @@ class EditBox extends BaseComponent {
     }
 
     @AutoBind
-    changeEdit(flag) {
+    changeEdit() {
         // 上传的时候禁止出界面到其他地方
         if (this.upFileFlag) return;
-        const showEdit = flag === true ? flag : this.state.showEdit;
-        this.setState({ showEdit: !showEdit });
-        this.props.setValue("FileList", { isHidden: !showEdit });
-        if (showEdit) {
-            console.log(`save`);
-            this.md.onSave();
-        }
+        this.changeEditCore(this.state.showEdit);
+    }
+
+    changeEditCore(flag) {
+        this.setState({ showEdit: !flag });
+        this.props.setValue("FileList", { isHidden: !flag });
+        if (flag) this.md.onSave();
     }
 
     cacheFileValue = "";
@@ -80,7 +80,7 @@ class EditBox extends BaseComponent {
         this.showLoad(true);
         console.log(this.props.fileInfo);
         setTimeout(() => {
-            this.changeEdit(true);
+            this.changeEditCore(true);
             this.showLoad(false);
             this.upFileFlag = false;
         }, 5000);
