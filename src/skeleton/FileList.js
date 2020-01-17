@@ -45,7 +45,7 @@ class FileList extends BaseComponent {
     onMouseUp(e) {
         if (!this.menu) return;
         if (e.button !== 2) return;
-        if (e.target.className === "ys-filelist") {
+        if (e.target.classList.contains("ys-filelist")) {
             this.menu.show({ x: e.clientX, y: e.clientY + 10 });
         }
     }

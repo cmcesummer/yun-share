@@ -84,7 +84,7 @@ class Login extends BaseComponent {
                     onChange={this.inputChange.bind(this, "psd")}
                 />
 
-                <Checkbox className="check input-item" onChange={this.checkboxChange} defaultChecked={this.remember}>
+                <Checkbox className="input-item check" onChange={this.checkboxChange} defaultChecked={this.remember}>
                     Remember me
                 </Checkbox>
 
