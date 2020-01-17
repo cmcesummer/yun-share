@@ -9,7 +9,6 @@ code {
     left: 0;
     right: 0;
     bottom: 0;
-    // background: rgba(255, 255, 255, 0.9);
 }
 
 .un-text {
@@ -72,11 +71,12 @@ code {
     left: 0;
     right: 0;
     bottom: 0;
-    // border: 1px solid #999;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.9);
+    transition: opacity linear 1s;
     .ys-filelist {
         width: 300px;
         border-right: 1px solid #eaecef;
-        // border-right: 1px solid rgba(234, 236, 239, 1);
         height: 100%;
         overflow: auto;
         position: relative;
@@ -88,7 +88,6 @@ code {
             font-size: 0;
             position: relative;
             overflow: hidden;
-            // padding: 16px 24px;
             height: 56px;
             .bg,
             .content {
@@ -103,7 +102,6 @@ code {
             &.active {
                 .bg {
                     background: url(./imgs/btnsbg.png);
-                    //  background: rgba(234, 236, 239, 0.8);
                     background-size: cover;
                     filter: blur(5px);
                 }
@@ -167,7 +165,6 @@ code {
         right: 0;
         bottom: 0;
         width: 80px;
-        // background: #fafafa;
         border-left: 1px solid rgba(0, 0, 0, 0.1);
         & button {
             margin: 20px auto;
@@ -190,6 +187,7 @@ code {
     box-shadow: 0 2px 8px #f0f1f2;
     min-width: 400px;
     padding: 0 20px;
+    background: rgba(255, 255, 255, 0.9);
     -webkit-app-region: drag;
     h1 {
         font-size: 18px;

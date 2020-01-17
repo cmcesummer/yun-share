@@ -3,6 +3,7 @@ import { Provider } from "./store/SourceCenter";
 import SourceManager from "./store/SourceManager";
 import Container from "./skeleton/Container";
 import Header from "./skeleton/Header";
+import Login from "./skeleton/Login";
 
 class App extends React.Component {
     constructor() {
@@ -14,12 +15,20 @@ class App extends React.Component {
             addListener: manger.addListener,
             removeAllListener: manger.removeAllListener
         };
+        this.state = {
+            login: false
+        };
     }
+
+    registed = () => {
+        this.setState({ login: true });
+    };
+
     render() {
         return (
             <Provider value={this.value}>
-                <Header></Header>
-                <Container></Container>
+                <Header />
+                {this.state.login ? <Container /> : <Login registed={this.registed} />}
             </Provider>
         );
     }

@@ -16,6 +16,12 @@ class Container extends BaseComponent {
 
     static _name = "Container";
 
+    componentDidMount() {
+        setTimeout(() => {
+            document.querySelector("#App").style.opacity = "1";
+        });
+    }
+
     modalCore(falg) {
         this.setState({ visible: !!falg });
     }
@@ -37,7 +43,7 @@ class Container extends BaseComponent {
 
     render() {
         return (
-            <div className="App">
+            <div className="App" id="App">
                 <FileList />
                 <EditBox />
             </div>
