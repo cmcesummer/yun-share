@@ -61,7 +61,7 @@
             "allowToChangeInstallationDirectory": true
         }
     },
-    "main": "./build/main.js",
+    "main": "./app/main.js",
     "eslintConfig": {
         "extends": "react-app"
     },
