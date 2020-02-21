@@ -1,5 +1,19 @@
 # 云享 yun-share
 
+## 开发环境
+
+### 开发脚本
+
+```bash
+
+# 1. 启动web服务
+npm run start
+
+# 2. 启动 electron 服务
+npm run electron
+
+```
+
 ## win 下打包
 
 ### 遇到的问题以及参考：
@@ -30,12 +44,13 @@ npm run build:electron:win
   • building block map  blockMapFile=build\releases\yun-share Setup 0.1.1.exe.blockmap
 ```
 
-## feature list:
+## feature list / todo list:
 
 -   [x] 编辑器 ctrl + s 保存的时候
 -   [x] 编辑器粘贴拦截
 -   [x] code 编辑器拖拽上传图片
 -   [x] md 导出为 html
+-   添加总控制， 进可上传云端，退可作为本地开发工具
 -   换肤
 
 ## BUG LIST
