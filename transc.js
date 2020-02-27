@@ -7,3 +7,12 @@ async function main() {
 }
 
 main();
+
+function change(dm) {
+    const arr = Array.from(dm);
+    for (const item of arr) {
+        item.setAttribute("src-p", item.src);
+        item.src = "";
+    }
+    return;
+}

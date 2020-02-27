@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="box1"></div>
+        <div id="box2"></div>
+        <div id="box3"></div>
+        <script>
+            const timeMi = 200;
+            function time1() {
+                let start = 1;
+                function done() {
+                    box1.innerHTML = start;
+                }
+                function setTime() {
+                    setTimeout(() => {
+                        setTime();
+                    }, timeMi);
+                    done();
+                    start++;
+                }
+                setTime();
+            }
+            function time2() {
+                let start = 1;
+                function done() {
+                    box2.innerHTML = start;
+                }
+                let lasttime = Date.now();
+                function ani() {
+                    if (Date.now() - lasttime >= timeMi) {
+                        lasttime = Date.now();
+                        done();
+                        start++;
+                    }
+                    requestAnimationFrame(ani);
+                }
+                done();
+                start++;
+                requestAnimationFrame(ani);
+            }
+            function time3() {
+                let start = 1;
+                setInterval(() => {
+                    box3.innerHTML = start;
+                    start++;
+                }, timeMi);
+            }
+            time2();
+            time1();
+            time3();
+        </script>
+    </body>
+</html>
