@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Input, Icon, Checkbox } from "antd";
 import BaseComponent from "../components/BaseComponent";
 import ButtonExt from "../components/Button";
@@ -10,10 +10,17 @@ const REMEBER_PASSWORD = "REMEBER_PASSWORD";
 
 const REMEBER_CHECK = "false";
 
+const Inp = memo(function (props) {
+    return <Input {...props} />;
+});
+
+const UserIcon = <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />;
+const PasswordIcon = <Icon type="key" style={{ color: "rgba(0,0,0,.25)" }} />;
+
 class Login extends BaseComponent {
     state = {
         msg: "",
-        loading: false
+        loading: false,
     };
 
     username = "";
@@ -60,15 +67,15 @@ class Login extends BaseComponent {
         }
     };
 
-    checkboxChange = e => {
+    checkboxChange = (e) => {
         this.remember = e.target.checked;
     };
 
     render() {
         return (
             <div className="login-box">
-                <Input
-                    prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+                <Inp
+                    prefix={UserIcon}
                     placeholder="Username"
                     className="input-item"
                     defaultValue={this.username}
@@ -76,7 +83,7 @@ class Login extends BaseComponent {
                 />
 
                 <Input
-                    prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+                    prefix={PasswordIcon}
                     type="password"
                     placeholder="Password"
                     className="input-item"

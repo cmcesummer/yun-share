@@ -8,11 +8,11 @@ import App from "./App";
 // import "./utils/db";
 
 // 移除窗口的 drop 事件
-document.addEventListener("drop", e => {
+document.addEventListener("drop", (e) => {
     e.preventDefault();
 });
 
-document.oncontextmenu = function(e) {
+document.oncontextmenu = function (e) {
     e.preventDefault();
 };
 
@@ -33,7 +33,7 @@ const ROOT = document.getElementById("root");
 //     }
 // }
 
-ReactDOM.render(<App />, ROOT, _ => {
+ReactDOM.render(<App />, ROOT, (_) => {
     ROOT.style.opacity = "1";
 });
 

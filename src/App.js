@@ -1,9 +1,10 @@
 import React from "react";
 import { Provider } from "./store/SourceCenter";
 import SourceManager from "./store/SourceManager";
-import Container from "./skeleton/Container";
-import Header from "./skeleton/Header";
-import Login from "./skeleton/Login";
+// import Container from "./skeleton/Container";
+// import Header from "./skeleton/Header";
+import Login from "./skeleton/hooks/Login";
+// import Login from "./skeleton/Login";
 
 class App extends React.Component {
     constructor() {
@@ -13,10 +14,10 @@ class App extends React.Component {
             getValue: manger.getValue,
             setValue: manger.setValue,
             addListener: manger.addListener,
-            removeAllListener: manger.removeAllListener
+            removeAllListener: manger.removeAllListener,
         };
         this.state = {
-            login: false
+            login: false,
         };
     }
 
@@ -27,8 +28,9 @@ class App extends React.Component {
     render() {
         return (
             <Provider value={this.value}>
-                <Header />
-                {this.state.login ? <Container /> : <Login registed={this.registed} />}
+                {/* <Header /> */}
+                {/* {this.state.login ? <Container /> : <Login registed={this.registed} />} */}
+                <Login registed={this.registed} />
             </Provider>
         );
     }
